@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { loginFormOptions } from "@/form-options/login-form.options";
 import { cn } from "@/lib/utils";
@@ -11,11 +11,17 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
   const navigate = useNavigate();
   const loginForm = useAppForm({
     ...loginFormOptions,
-    onSubmit: async ({ value }) => {
-      console.log(value);
-      navigate({ to: "/workspace/dashboard" });
+    onSubmit: async () => {
+      navigate({ to: "/workspace" });
     },
   });
+
+  const handleFillForm = () => {
+    loginForm.setFieldValue("email", "john.smith@neuron.com");
+    loginForm.setFieldValue("password", "12345678");
+
+    loginForm.handleSubmit();
+  };
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -24,6 +30,11 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
           <CardHeader>
             <CardTitle>Login to your account</CardTitle>
             <CardDescription>Enter your email below to login to your account</CardDescription>
+            <CardAction>
+              <Button onClick={handleFillForm} variant='outline' className='w-full'>
+                Fill the form
+              </Button>
+            </CardAction>
           </CardHeader>
           <CardContent>
             <form>
