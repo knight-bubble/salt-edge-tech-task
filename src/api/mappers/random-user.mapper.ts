@@ -12,7 +12,7 @@ export const randomUserRowMapper = (
   sortBy: {
     id: string;
     desc: boolean;
-  }[]
+  }[],
 ): PaginatedData<RandomUserRow> => {
   const startIndex = pageIndex * pageSize;
   const endIndex = startIndex + pageSize;
@@ -34,15 +34,19 @@ export const randomUserRowMapper = (
     results = results.sort((a, b) =>
       sortBy.reduce((acc, curr) => {
         if (curr.id === "name") {
-          return curr.desc ? a.name.first.localeCompare(b.name.first) : b.name.first.localeCompare(a.name.first);
+          return curr.desc
+            ? a.name.first.localeCompare(b.name.first)
+            : b.name.first.localeCompare(a.name.first);
         }
 
         if (curr.id === "email") {
-          return curr.desc ? a.email.localeCompare(b.email) : b.email.localeCompare(a.email);
+          return curr.desc
+            ? a.email.localeCompare(b.email)
+            : b.email.localeCompare(a.email);
         }
 
         return acc;
-      }, 0)
+      }, 0),
     );
   }
 
@@ -57,6 +61,9 @@ export const randomUserRowMapper = (
   };
 };
 
-export const randomUserMapper = (response: PaginatedResponse<RandomUser>, userId: string): RandomUser | undefined => {
-  return response.results.find((user) => user.login.uuid === userId);
+export const randomUserMapper = (
+  response: PaginatedResponse<RandomUser>,
+  userId: string,
+): RandomUser | undefined => {
+  return response.results.find((user) => user.login.username === userId);
 };

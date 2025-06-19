@@ -1,11 +1,20 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { forgotPasswordFormOptions } from "@/form-options/forgot-password.options";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "@tanstack/react-router";
 import { useAppForm } from "../ui/tanstack-form";
 
-export function ForgotPasswordForm({ className, ...props }: React.ComponentProps<"div">) {
+export function ForgotPasswordForm({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   const navigate = useNavigate();
   const forgotPasswordForm = useAppForm({
     ...forgotPasswordFormOptions,
@@ -21,18 +30,20 @@ export function ForgotPasswordForm({ className, ...props }: React.ComponentProps
         <forgotPasswordForm.AppForm>
           <CardHeader>
             <CardTitle>Forgot Password</CardTitle>
-            <CardDescription>Enter your email below to reset your password</CardDescription>
+            <CardDescription>
+              Enter your email below to reset your password
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <form>
-              <div className='flex flex-col gap-6'>
-                <forgotPasswordForm.AppField name='email'>
+              <div className="flex flex-col gap-6">
+                <forgotPasswordForm.AppField name="email">
                   {(field) => (
                     <field.FormItem>
                       <field.FormLabel>Email</field.FormLabel>
                       <field.FormControl>
                         <Input
-                          type='email'
+                          type="email"
                           value={field.state.value}
                           onChange={(e) => field.handleChange(e.target.value)}
                           onBlur={field.handleBlur}
@@ -42,8 +53,8 @@ export function ForgotPasswordForm({ className, ...props }: React.ComponentProps
                     </field.FormItem>
                   )}
                 </forgotPasswordForm.AppField>
-                <div className='flex flex-col gap-3'>
-                  <forgotPasswordForm.SubmitButton label='Reset Password' />
+                <div className="flex flex-col gap-3">
+                  <forgotPasswordForm.SubmitButton label="Reset Password" />
                 </div>
               </div>
             </form>

@@ -4,7 +4,10 @@ import type { RandomUserRow } from "@/types/domain/random-user-row";
 import type { PaginatedData } from "@/types/table-pagination";
 import { queryOptions } from "@tanstack/react-query";
 import axios from "axios";
-import { randomUserMapper, randomUserRowMapper } from "./mappers/random-user.mapper";
+import {
+  randomUserMapper,
+  randomUserRowMapper,
+} from "./mappers/random-user.mapper";
 
 export const randomUsersQueryOptions = (
   query: string = "",
@@ -13,23 +16,24 @@ export const randomUsersQueryOptions = (
   sortBy: {
     id: string;
     desc: boolean;
-  }[] = []
+  }[] = [],
 ) =>
   queryOptions({
     queryKey: ["random-users", query, pageIndex, pageSize, sortBy],
     queryFn: async (): Promise<PaginatedData<RandomUserRow>> => {
       const params = new URLSearchParams();
-      params.append("inc", "login,name,email,picture");
       params.append("results", "100");
 
       const queryString = params.toString();
       const endpoint = `/${queryString ? `?${queryString}` : ""}`;
 
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       return axios
         .get<PaginatedResponse<RandomUserRow>>(endpoint)
-        .then((res) => randomUserRowMapper(res.data, pageIndex, pageSize, query, sortBy));
+        .then((res) =>
+          randomUserRowMapper(res.data, pageIndex, pageSize, query, sortBy),
+        );
     },
     placeholderData: (previousData) => {
       return {
@@ -51,8 +55,10 @@ export const randomUserQueryOptions = (userId: string) =>
       const queryString = params.toString();
       const endpoint = `/${queryString ? `?${queryString}` : ""}`;
 
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      return axios.get<PaginatedResponse<RandomUser>>(endpoint).then((res) => randomUserMapper(res.data, userId));
+      return axios
+        .get<PaginatedResponse<RandomUser>>(endpoint)
+        .then((res) => randomUserMapper(res.data, userId));
     },
   });

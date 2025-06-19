@@ -1,7 +1,13 @@
 import { useBreadcrumbs } from "@/hooks/use-breadcrumbs";
 import { Link } from "@tanstack/react-router";
 import React from "react";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "./ui/breadcrumb";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "./ui/breadcrumb";
 
 export const BreadcrumbTrail = () => {
   const breadcrumbs = useBreadcrumbs();
@@ -16,7 +22,9 @@ export const BreadcrumbTrail = () => {
                 <Link to={breadcrumb.path}>{breadcrumb.title}</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
-            {index !== breadcrumbs.length - 1 && <BreadcrumbSeparator className='hidden md:block' />}
+            {index !== breadcrumbs.length - 1 && (
+              <BreadcrumbSeparator className="hidden md:block" />
+            )}
           </React.Fragment>
         ))}
       </BreadcrumbList>

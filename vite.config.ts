@@ -10,7 +10,7 @@ export default defineConfig({
   plugins: [
     tanstackRouter({
       target: "react",
-      // autoCodeSplitting: true,
+      autoCodeSplitting: true,
     }),
     react(),
     tailwindcss(),
@@ -20,9 +20,12 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  base: process.env.VITE_BASE_URL
+    ? `/${process.env.VITE_BASE_URL}/`
+    : "/salt-edge-tech-task/",
   test: {
     globals: true,
     environment: "jsdom",
-    setupFiles: "./src/test/setup.ts",
+    setupFiles: "./src/__tests__/setup.ts",
   },
 });

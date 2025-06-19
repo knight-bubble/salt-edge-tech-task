@@ -5,7 +5,7 @@ export const ConfigContext = createContext<
   | {
       config: AppConfig;
       setConfig: (config: AppConfig) => void;
-      updateConfig: (key: string, value: any) => void;
+      updateConfig: (key: string, value: unknown) => void;
       clearConfig: () => void;
     }
   | undefined
@@ -32,7 +32,7 @@ export const ConfigProvider = ({ children }: { children: React.ReactNode }) => {
     localStorage.setItem("config", JSON.stringify(config));
   }, [config]);
 
-  const updateConfig = (key: string, value: any) => {
+  const updateConfig = (key: string, value: unknown) => {
     setConfig((prev) => ({ ...prev, [key]: value }));
   };
 
@@ -42,6 +42,10 @@ export const ConfigProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <ConfigContext.Provider value={{ config, setConfig, updateConfig, clearConfig }}>{children}</ConfigContext.Provider>
+    <ConfigContext.Provider
+      value={{ config, setConfig, updateConfig, clearConfig }}
+    >
+      {children}
+    </ConfigContext.Provider>
   );
 };

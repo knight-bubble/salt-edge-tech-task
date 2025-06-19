@@ -1,9 +1,14 @@
 import { ErrorPage } from "@/components/general/error-page";
 import { NotFound } from "@/components/general/not-found";
+import { Spinner } from "@/components/ui/spinner";
 import { queryClient } from "@/configs/query-client";
 import { ConfigProvider } from "@/providers/ConfigProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createRootRouteWithContext, HeadContent, Outlet } from "@tanstack/react-router";
+import {
+  createRootRouteWithContext,
+  HeadContent,
+  Outlet,
+} from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { createPortal } from "react-dom";
 
@@ -23,4 +28,5 @@ export const Route = createRootRouteWithContext<{
   },
   notFoundComponent: NotFound,
   errorComponent: ErrorPage,
+  pendingComponent: () => <Spinner />,
 });

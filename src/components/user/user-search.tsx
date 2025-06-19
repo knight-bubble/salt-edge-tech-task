@@ -23,7 +23,7 @@ export const UserSearch = () => {
     <Input
       value={searchValue}
       onChange={(e) => handleSearchValueChange(e.target.value)}
-      placeholder='Search users...'
+      placeholder="Search users..."
     />
   );
 };

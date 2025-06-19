@@ -9,5 +9,5 @@ export interface PaginatedData<T> {
 }
 
 export type PaginationParams = PaginationState;
-export type SortParams = { sortBy: `${string}.${"asc" | "desc"}` };
+export type SortParams = { sortBy: `${string}.${"asc" | "desc"}`[] };
 export type Filters<T> = Partial<T & PaginationParams & SortParams>;

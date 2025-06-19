@@ -2,7 +2,13 @@ import { cn } from "@/lib/utils";
 import { Command as CommandPrimitive } from "cmdk";
 import { Check } from "lucide-react";
 import { useMemo, useState } from "react";
-import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from "./command";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+  CommandList,
+} from "./command";
 import { Input } from "./input";
 import { Popover, PopoverAnchor, PopoverContent } from "./popover";
 import { Skeleton } from "./skeleton";
@@ -37,9 +43,9 @@ export function AutoComplete<T extends string>({
           acc[item.value] = item.label;
           return acc;
         },
-        {} as Record<string, string>
+        {} as Record<string, string>,
       ),
-    [items]
+    [items],
   );
 
   const reset = () => {
@@ -48,7 +54,10 @@ export function AutoComplete<T extends string>({
   };
 
   const onInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    if (!e.relatedTarget?.hasAttribute("cmdk-list") && labels[selectedValue] !== searchValue) {
+    if (
+      !e.relatedTarget?.hasAttribute("cmdk-list") &&
+      labels[selectedValue] !== searchValue
+    ) {
       reset();
     }
   };
@@ -64,7 +73,7 @@ export function AutoComplete<T extends string>({
   };
 
   return (
-    <div className='flex items-center'>
+    <div className="flex items-center">
       <Popover open={open} onOpenChange={setOpen}>
         <Command shouldFilter={false}>
           <PopoverAnchor asChild>
@@ -80,22 +89,25 @@ export function AutoComplete<T extends string>({
               <Input placeholder={placeholder} />
             </CommandPrimitive.Input>
           </PopoverAnchor>
-          {!open && <CommandList aria-hidden='true' className='hidden' />}
+          {!open && <CommandList aria-hidden="true" className="hidden" />}
           <PopoverContent
             asChild
             onOpenAutoFocus={(e) => e.preventDefault()}
             onInteractOutside={(e) => {
-              if (e.target instanceof Element && e.target.hasAttribute("cmdk-input")) {
+              if (
+                e.target instanceof Element &&
+                e.target.hasAttribute("cmdk-input")
+              ) {
                 e.preventDefault();
               }
             }}
-            className='w-[--radix-popover-trigger-width] p-0'
+            className="w-[--radix-popover-trigger-width] p-0"
           >
             <CommandList>
               {isLoading && (
                 <CommandPrimitive.Loading>
-                  <div className='p-1'>
-                    <Skeleton className='h-6 w-full' />
+                  <div className="p-1">
+                    <Skeleton className="h-6 w-full" />
                   </div>
                 </CommandPrimitive.Loading>
               )}
@@ -109,14 +121,21 @@ export function AutoComplete<T extends string>({
                       onSelect={onSelectItem}
                     >
                       <Check
-                        className={cn("mr-2 h-4 w-4", selectedValue === option.value ? "opacity-100" : "opacity-0")}
+                        className={cn(
+                          "mr-2 h-4 w-4",
+                          selectedValue === option.value
+                            ? "opacity-100"
+                            : "opacity-0",
+                        )}
                       />
                       {option.label}
                     </CommandItem>
                   ))}
                 </CommandGroup>
               ) : null}
-              {!isLoading ? <CommandEmpty>{emptyMessage ?? "No items."}</CommandEmpty> : null}
+              {!isLoading ? (
+                <CommandEmpty>{emptyMessage ?? "No items."}</CommandEmpty>
+              ) : null}
             </CommandList>
           </PopoverContent>
         </Command>

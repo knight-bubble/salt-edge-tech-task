@@ -3,7 +3,7 @@ import { UserList } from "@/components/user/user-list";
 import { sortByToState } from "@/lib/utils";
 import type { SortParams } from "@/types/table-pagination";
 import { createFileRoute } from "@tanstack/react-router";
-import { number, object, optional, string } from "valibot";
+import { array, number, object, optional, string } from "valibot";
 
 export const Route = createFileRoute("/workspace/users/")({
   validateSearch: object({
@@ -11,7 +11,7 @@ export const Route = createFileRoute("/workspace/users/")({
 
     pageIndex: optional(number()),
     pageSize: optional(number()),
-    sortBy: optional(string()),
+    sortBy: optional(array(string())),
   }),
   component: UsersRouteComponent,
   loaderDeps: ({ search: { query, pageIndex, pageSize, sortBy } }) => ({
@@ -20,9 +20,17 @@ export const Route = createFileRoute("/workspace/users/")({
     pageSize,
     sortBy,
   }),
-  loader: ({ deps: { query, pageIndex, pageSize, sortBy }, context: { queryClient } }) => {
+  loader: ({
+    deps: { query, pageIndex, pageSize, sortBy },
+    context: { queryClient },
+  }) => {
     queryClient.prefetchQuery(
-      randomUsersQueryOptions(query, pageIndex, pageSize, sortByToState(sortBy as SortParams["sortBy"]))
+      randomUsersQueryOptions(
+        query,
+        pageIndex,
+        pageSize,
+        sortByToState(sortBy as SortParams["sortBy"]),
+      ),
     );
   },
 });

@@ -1,4 +1,4 @@
-import { LoginSchema } from "@/schemas/login.scheme";
+import { LoginSchema } from "@/schemas/login.schema";
 import type { LoginForm } from "@/types/forms/login-form";
 import { formOptions } from "@tanstack/react-form";
 

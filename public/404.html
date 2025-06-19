@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting...</title>
+    <script>
+      // GitHub Pages SPA redirect script
+      // This script takes the current URL and redirects to the root index.html
+      // with the path encoded as a query parameter
+
+      const path = window.location.pathname;
+      const query = window.location.search;
+      const hash = window.location.hash;
+
+      // Get the repository name from the path
+      const segments = path.split("/").filter(Boolean);
+      const repoName = segments[0];
+
+      // Redirect to index.html with path info
+      window.location.href = `/${repoName}/?p=${path}${query}${hash}`;
+    </script>
+  </head>
+  <body>
+    <p>Redirecting to the app...</p>
+  </body>
+</html>
